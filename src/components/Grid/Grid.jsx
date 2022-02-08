@@ -36,6 +36,7 @@ export default function Grid() {
   const [points, setPoints] = useState(0);
   const foodColors = ["yellow", "orange", "red"];
   const [foodColor, setFoodColor] = useState(getRandomColor(foodColors));
+  const [isGameOver, setGameOver] = useState(false);
 
   const changeDirectionWithKeys = (e) => {
     const { keyCode } = e;
@@ -110,6 +111,19 @@ export default function Grid() {
     } else {
       newSnake.pop();
     }
+
+    let count = 0;
+    for (let e of snake) {
+      if (count === 0) {
+        count++;
+        continue;
+      }
+      if (snake[0].x === e.x && snake[0].y === e.y) {
+        setGameOver(true);
+      }
+      count++;
+    }
+
     setSnake(newSnake);
     displaySnake();
   }
@@ -131,7 +145,9 @@ export default function Grid() {
 
   return (
     <div className={styles.snakeContainer}>
-      <div className={styles.grid}>{displayRows}</div>
+      <div className={styles.grid}>
+        {!isGameOver ? displayRows : "Game Over!"}
+      </div>
     </div>
   );
 }
