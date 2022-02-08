@@ -7,10 +7,14 @@ import getRandomColor from "../../utils/getRandomColor";
 import useSound from "use-sound";
 import getFoodSound from "../../audio/getFood.wav";
 import gameOverSound from "../../audio/gameOver.wav";
+import appleRed from "../../images/appleRed.png";
+import appleGreen from "../../images/appleGreen.png";
+import appleYellow from "../../images/appleYellow.png";
+import getRandomValueFromArray from "../../utils/getRandomValueFromArray";
 
 export default function Grid() {
-  const width = 10;
-  const height = 10;
+  const width = 20;
+  const height = 20;
   let initialRows = [];
   for (let i = 0; i < height; i++) {
     initialRows.push([]);
@@ -35,14 +39,38 @@ export default function Grid() {
     { x: 0, y: 0 },
     { x: 1, y: 0 },
   ]);
+
+  const foodArray = [
+    {
+      position: getRandomPosition(),
+      points: 1,
+      img: appleGreen,
+    },
+    {
+      position: getRandomPosition(),
+      points: 5,
+      img: appleYellow,
+    },
+    {
+      position: getRandomPosition(),
+      points: 10,
+      img: appleRed,
+    },
+  ];
+
   const [direction, setDirection] = useState("right");
-  const [food, setFood] = useState(getRandomPosition());
+  const [food, setFood] = useState(getRandomValueFromArray(foodArray));
   const [delay, setDelay] = useState(200);
   const [initPoints, setInitPoints] = useState(0);
   const [points, setPoints] = useState(0);
-  const foodColors = ["yellow", "orange", "red"];
-  const [foodColor, setFoodColor] = useState(getRandomColor(foodColors));
+  // const foodColors = ["yellow", "orange", "red"];
+  // const appleImages = [appleRed, appleGreen, appleYellow];
+  // const [foodColor, setFoodColor] = useState(getRandomColor(foodColors));
+  // const [appleImage, setAppleImage] = useState(
+  //   getRandomValueFromArray(appleImages)
+  // );
   const [isGameOver, setGameOver] = useState(false);
+  const [speed, setSpeed] = useState(1);
 
   const changeDirectionWithKeys = (e) => {
     const { keyCode } = e;
@@ -72,18 +100,22 @@ export default function Grid() {
       newRows[cell.x][cell.y] = { title: "snake" };
     });
     let points = 0;
-    switch (foodColor) {
-      case "yellow":
-        points = 1;
-        break;
-      case "orange":
-        points = 5;
-        break;
-      case "red":
-        points = 10;
-        break;
-    }
-    newRows[food.x][food.y] = { title: "food", foodColor, points };
+    // switch (foodColor) {
+    //   case "yellow":
+    //     points = 1;
+    //     break;
+    //   case "orange":
+    //     points = 5;
+    //     break;
+    //   case "red":
+    //     points = 10;
+    //     break;
+    // }
+    newRows[food.position.x][food.position.y] = {
+      title: "food",
+      points: food.points,
+      image: food.img,
+    };
     setRows(newRows);
   }
 
@@ -106,15 +138,17 @@ export default function Grid() {
     snake.forEach((cell) => {
       newSnake.push(cell);
     });
-    if (snake[0].x === food.x && snake[0].y === food.y) {
+    if (snake[0].x === food.position.x && snake[0].y === food.position.y) {
       playGetFoodSound();
-      setPoints(points + rows[food.x][food.y].points);
+      setPoints(points + rows[food.position.x][food.position.y].points);
       if (points - initPoints >= 50) {
         setDelay(Math.floor(delay / 1.1));
+        setSpeed(speed * 1.1);
         setInitPoints(points);
       }
-      setFoodColor(getRandomColor(foodColors));
-      setFood(getRandomPosition());
+      // setFoodColor(getRandomColor(foodColors));
+      // setFood(getRandomPosition());
+      setFood(getRandomValueFromArray(foodArray));
     } else {
       newSnake.pop();
     }
@@ -140,13 +174,14 @@ export default function Grid() {
 
   const displayRows = rows.map((row) =>
     row.map((e) => {
+      // console.log(e.image);
       switch (e.title) {
         case "blank":
           return <div className={styles.gridItem}></div>;
         case "snake":
           return <Snake />;
         case "food":
-          return <Food color={e.foodColor} />;
+          return <Food image={e.image} />;
       }
     })
   );
@@ -155,6 +190,10 @@ export default function Grid() {
     <div className={styles.snakeContainer}>
       <div className={styles.grid}>
         {!isGameOver ? displayRows : "Game Over!"}
+      </div>
+      <div>
+        <h1>{`Score: ${points}`}</h1>
+        <h1>{`Speed: ${speed}x`}</h1>
       </div>
     </div>
   );

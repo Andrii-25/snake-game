@@ -1,10 +1,10 @@
 import styles from "./Food.module.scss";
-import apple from "../../apple.png";
 
-export default function Food({ color }) {
+export default function Food({ image }) {
+  // console.log(image);
   return (
-    <div style={{ backgroundColor: color }} className={styles.food}>
-      <img src={apple} alt="apple" width={35} height={35} />
+    <div>
+      <img src={image} alt="apple" width={25} height={25} />
     </div>
   );
 }
