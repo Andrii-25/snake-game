@@ -4,6 +4,9 @@ import Snake from "../Snake";
 import useInterval from "../../hooks/useInterval";
 import styles from "./Grid.module.scss";
 import getRandomColor from "../../utils/getRandomColor";
+import useSound from "use-sound";
+import getFoodSound from "../../audio/getFood.wav";
+import gameOverSound from "../../audio/gameOver.wav";
 
 export default function Grid() {
   const width = 10;
@@ -15,6 +18,9 @@ export default function Grid() {
       initialRows[i].push({ title: "blank" });
     }
   }
+
+  const [playGetFoodSound] = useSound(getFoodSound);
+  const [playGameOverSound] = useSound(gameOverSound);
 
   const getRandomPosition = () => {
     const position = {
@@ -101,6 +107,7 @@ export default function Grid() {
       newSnake.push(cell);
     });
     if (snake[0].x === food.x && snake[0].y === food.y) {
+      playGetFoodSound();
       setPoints(points + rows[food.x][food.y].points);
       if (points - initPoints >= 50) {
         setDelay(Math.floor(delay / 1.1));
@@ -119,6 +126,7 @@ export default function Grid() {
         continue;
       }
       if (snake[0].x === e.x && snake[0].y === e.y) {
+        playGameOverSound();
         setGameOver(true);
       }
       count++;
