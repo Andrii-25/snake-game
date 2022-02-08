@@ -1,8 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import Food from "../Food";
 import Snake from "../Snake";
 import useInterval from "../../hooks/useInterval";
 import styles from "./Grid.module.scss";
+import getRandomColor from "../../utils/getRandomColor";
 
 export default function Grid() {
   const width = 10;
@@ -11,11 +12,11 @@ export default function Grid() {
   for (let i = 0; i < height; i++) {
     initialRows.push([]);
     for (let k = 0; k < width; k++) {
-      initialRows[i].push("blank");
+      initialRows[i].push({ title: "blank" });
     }
   }
 
-  const randomPosition = () => {
+  const getRandomPosition = () => {
     const position = {
       x: Math.floor(Math.random() * width),
       y: Math.floor(Math.random() * height),
@@ -29,7 +30,12 @@ export default function Grid() {
     { x: 1, y: 0 },
   ]);
   const [direction, setDirection] = useState("right");
-  const [food, setFood] = useState(randomPosition);
+  const [food, setFood] = useState(getRandomPosition());
+  const [delay, setDelay] = useState(200);
+  const [initPoints, setInitPoints] = useState(0);
+  const [points, setPoints] = useState(0);
+  const foodColors = ["yellow", "orange", "red"];
+  const [foodColor, setFoodColor] = useState(getRandomColor(foodColors));
 
   const changeDirectionWithKeys = (e) => {
     const { keyCode } = e;
@@ -56,9 +62,21 @@ export default function Grid() {
   function displaySnake() {
     const newRows = initialRows;
     snake.forEach((cell) => {
-      newRows[cell.x][cell.y] = "snake";
+      newRows[cell.x][cell.y] = { title: "snake" };
     });
-    newRows[food.x][food.y] = "food";
+    let points = 0;
+    switch (foodColor) {
+      case "yellow":
+        points = 1;
+        break;
+      case "orange":
+        points = 5;
+        break;
+      case "red":
+        points = 10;
+        break;
+    }
+    newRows[food.x][food.y] = { title: "food", foodColor, points };
     setRows(newRows);
   }
 
@@ -76,12 +94,19 @@ export default function Grid() {
         break;
       case "bottom":
         newSnake.push({ x: (snake[0].x + 1) % height, y: snake[0].y });
+        break;
     }
     snake.forEach((cell) => {
       newSnake.push(cell);
     });
     if (snake[0].x === food.x && snake[0].y === food.y) {
-      setFood(randomPosition);
+      setPoints(points + rows[food.x][food.y].points);
+      if (points - initPoints >= 50) {
+        setDelay(Math.floor(delay / 1.1));
+        setInitPoints(points);
+      }
+      setFoodColor(getRandomColor(foodColors));
+      setFood(getRandomPosition());
     } else {
       newSnake.pop();
     }
@@ -89,17 +114,17 @@ export default function Grid() {
     displaySnake();
   }
 
-  useInterval(moveSnake, 200);
+  useInterval(moveSnake, delay);
 
   const displayRows = rows.map((row) =>
     row.map((e) => {
-      switch (e) {
+      switch (e.title) {
         case "blank":
           return <div className={styles.gridItem}></div>;
         case "snake":
           return <Snake />;
         case "food":
-          return <Food />;
+          return <Food color={e.foodColor} />;
       }
     })
   );
