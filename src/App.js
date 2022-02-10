@@ -1,5 +1,5 @@
 import "./App.css";
-import Grid from "./components/Grid";
+import Grid from "./components/GameField";
 import Header from "./components/Header";
 import LoginForm from "./components/LoginForm/LoginForm";
 import MainPage from "./pages/MainPage";

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Food from "../Food";
 import Snake from "../Snake";
 import useInterval from "../../hooks/useInterval";
-import styles from "./Grid.module.scss";
+import styles from "./GameField.module.scss";
 import getRandomColor from "../../utils/getRandomColor";
 import useSound from "use-sound";
 import getFoodSound from "../../audio/getFood.wav";
@@ -12,7 +12,7 @@ import appleGreen from "../../images/appleGreen.png";
 import appleYellow from "../../images/appleYellow.png";
 import getRandomValueFromArray from "../../utils/getRandomValueFromArray";
 
-export default function Grid() {
+export default function GameField() {
   const width = 20;
   const height = 20;
   let initialRows = [];

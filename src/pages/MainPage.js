@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import UserService from "../service/UserService";
 import { message } from "antd";
 import Header from "../components/Header";
-import Grid from "../components/Grid";
+import Grid from "../components/GameField";
 
 function MainPage() {
   const { store } = useContext(Context);
