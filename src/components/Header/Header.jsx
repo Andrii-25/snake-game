@@ -1,7 +1,7 @@
 import { PageHeader, Button, Row } from "antd";
 import styled from "styled-components";
 
-export default function Header() {
+export default function Header({ isAuth, onLogout }) {
   const StyledPageHeader = styled(PageHeader)`
     height: 70px;
     background-color: #2a324e;
@@ -20,12 +20,15 @@ export default function Header() {
           <StyledH2>Snake Game</StyledH2>
         </Row>
       }
-      extra={[
-        <Button key="2">Register</Button>,
-        <Button key="1" type="primary">
-          Login
-        </Button>,
-      ]}
+      extra={
+        isAuth
+          ? [
+              <Button key="1" onClick={onLogout}>
+                Logout
+              </Button>,
+            ]
+          : null
+      }
     ></StyledPageHeader>
   );
 }
