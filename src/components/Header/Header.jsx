@@ -2,16 +2,16 @@ import { PageHeader, Button, Row } from "antd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const StyledPageHeader = styled(PageHeader)`
+  height: 70px;
+  background-color: #2a324e;
+`;
+
+const StyledH2 = styled.h2`
+  color: #1890ff;
+`;
+
 export default function Header({ isAuth, onLogout }) {
-  const StyledPageHeader = styled(PageHeader)`
-    height: 70px;
-    background-color: #2a324e;
-  `;
-
-  const StyledH2 = styled.h2`
-    color: #1890ff;
-  `;
-
   return (
     <StyledPageHeader
       className="site-page-header"
@@ -26,8 +26,8 @@ export default function Header({ isAuth, onLogout }) {
       extra={
         isAuth
           ? [
-              <Link to="/scores">
-                <Button key="1">Best scores</Button>
+              <Link key="1" to="/scores">
+                <Button>Best scores</Button>
               </Link>,
               <Button key="2" onClick={onLogout}>
                 Logout

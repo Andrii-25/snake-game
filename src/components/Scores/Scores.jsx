@@ -32,13 +32,15 @@ function ScoreBoard() {
     <div className={styles.container}>
       <h1>Best scores</h1>
       <table className={styles.table}>
-        <tr>
-          <th className={styles.th}>Username</th>
-          <th className={styles.th}>Score</th>
-          <th className={styles.th}>Snake speed</th>
-          <th className={styles.th}>Snake length</th>
-        </tr>
-        {scores}
+        <tbody>
+          <tr>
+            <th className={styles.th}>Username</th>
+            <th className={styles.th}>Score</th>
+            <th className={styles.th}>Snake speed</th>
+            <th className={styles.th}>Snake length</th>
+          </tr>
+          {scores}
+        </tbody>
       </table>
     </div>
   );

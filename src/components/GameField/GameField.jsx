@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Food from "../Food";
 import Snake from "../Snake";
 import useInterval from "../../hooks/useInterval";
@@ -16,6 +17,9 @@ import { observer } from "mobx-react-lite";
 function GameField() {
   const { store } = useContext(Context);
 
+  const [playGetFoodSound] = useSound(getFoodSound);
+  const [playGameOverSound] = useSound(gameOverSound);
+
   const width = 20;
   const height = 20;
   let initialRows = [];
@@ -25,9 +29,6 @@ function GameField() {
       initialRows[i].push({ title: "blank" });
     }
   }
-
-  const [playGetFoodSound] = useSound(getFoodSound);
-  const [playGameOverSound] = useSound(gameOverSound);
 
   const getRandomPosition = () => {
     const position = {
@@ -185,11 +186,11 @@ function GameField() {
     row.map((e) => {
       switch (e.title) {
         case "blank":
-          return <div className={styles.gridItem}></div>;
+          return <div key={uuidv4()} className={styles.gridItem}></div>;
         case "snake":
-          return <Snake />;
+          return <Snake key={uuidv4()} />;
         case "food":
-          return <Food image={e.image} />;
+          return <Food key={uuidv4()} image={e.image} />;
       }
     })
   );

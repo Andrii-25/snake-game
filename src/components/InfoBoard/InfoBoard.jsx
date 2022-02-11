@@ -10,78 +10,83 @@ export default function InfoBoard() {
     <div className={styles.container}>
       <h1>Info</h1>
       <table className={styles.table}>
-        <tr>
-          <td className={styles.td}>
-            <h2>
-              <img src={appleGreen} alt="Green apple" width={25} height={25} />
-            </h2>
-          </td>
-          <td className={styles.td}>
-            <h2>-</h2>
-          </td>
-          <td className={styles.td}>
-            <h2>1 point</h2>
-          </td>
-        </tr>
-        <tr>
-          <td className={styles.td}>
-            <h2>
-              <img
-                src={appleYellow}
-                alt="Yellow apple"
-                width={25}
-                height={25}
-              />
-            </h2>
-          </td>
-          <td className={styles.td}>
-            <h2>-</h2>
-          </td>
-          <td className={styles.td}>
-            <h2>5 points</h2>
-          </td>
-        </tr>
-        <tr>
-          <td className={styles.td}>
-            <h2>
-              <img src={appleRed} alt="Red apple" width={25} height={25} />
-            </h2>
-          </td>
-          <td className={styles.td}>
-            <h2>-</h2>
-          </td>
-          <td className={styles.td}>
-            <h2>10 points</h2>
-          </td>
-        </tr>
-
-        <tr>
-          <td className={styles.td}>
-            <h2>
-              <img src={spaceKey} alt="Space key" width={50} height={35} />
-            </h2>
-          </td>
-          <td className={styles.td}>
-            <h2>-</h2>
-          </td>
-          <td className={styles.td}>
-            <h2>set pause</h2>
-          </td>
-        </tr>
-
-        <tr>
-          <td className={styles.td}>
-            <h2>
-              <img src={escKey} alt="Esc key" width={50} height={35} />
-            </h2>
-          </td>
-          <td className={styles.td}>
-            <h2>-</h2>
-          </td>
-          <td className={styles.td}>
-            <h2>unset pause</h2>
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td className={styles.td}>
+              <h2>
+                <img
+                  src={appleGreen}
+                  alt="Green apple"
+                  width={25}
+                  height={25}
+                />
+              </h2>
+            </td>
+            <td className={styles.td}>
+              <h2>-</h2>
+            </td>
+            <td className={styles.td}>
+              <h2>1 point</h2>
+            </td>
+          </tr>
+          <tr>
+            <td className={styles.td}>
+              <h2>
+                <img
+                  src={appleYellow}
+                  alt="Yellow apple"
+                  width={25}
+                  height={25}
+                />
+              </h2>
+            </td>
+            <td className={styles.td}>
+              <h2>-</h2>
+            </td>
+            <td className={styles.td}>
+              <h2>5 points</h2>
+            </td>
+          </tr>
+          <tr>
+            <td className={styles.td}>
+              <h2>
+                <img src={appleRed} alt="Red apple" width={25} height={25} />
+              </h2>
+            </td>
+            <td className={styles.td}>
+              <h2>-</h2>
+            </td>
+            <td className={styles.td}>
+              <h2>10 points</h2>
+            </td>
+          </tr>
+          <tr>
+            <td className={styles.td}>
+              <h2>
+                <img src={spaceKey} alt="Space key" width={50} height={35} />
+              </h2>
+            </td>
+            <td className={styles.td}>
+              <h2>-</h2>
+            </td>
+            <td className={styles.td}>
+              <h2>set pause</h2>
+            </td>
+          </tr>
+          <tr>
+            <td className={styles.td}>
+              <h2>
+                <img src={escKey} alt="Esc key" width={50} height={35} />
+              </h2>
+            </td>
+            <td className={styles.td}>
+              <h2>-</h2>
+            </td>
+            <td className={styles.td}>
+              <h2>unset pause</h2>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );
