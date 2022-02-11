@@ -12,7 +12,6 @@ import appleYellow from "../../images/appleYellow.png";
 import getRandomValueFromArray from "../../utils/getRandomValueFromArray";
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
-import { message } from "antd";
 
 function GameField() {
   const { store } = useContext(Context);
@@ -68,7 +67,6 @@ function GameField() {
   const [initPoints, setInitPoints] = useState(0);
   const [isGameOver, setGameOver] = useState(false);
   const [currentDelay, setCurrentDelay] = useState(delay);
-  const [isPaused, setPaused] = useState(false);
 
   const changeDirectionWithKeys = (e) => {
     const { keyCode } = e;

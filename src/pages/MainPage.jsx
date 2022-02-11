@@ -7,6 +7,7 @@ import InfoBoard from "../components/InfoBoard";
 import Layout from "../components/Layout";
 import Spinner from "../components/Spinner";
 import LoginPage from "./LoginPage";
+import { message } from "antd";
 
 function MainPage() {
   const { store } = useContext(Context);
@@ -31,7 +32,8 @@ function MainPage() {
 
   return (
     <>
-      <Layout isGamePaused={store.isPaused}>
+      <Layout>
+        {store.isPaused ? message.info("Game is paused!") : null}
         <InfoBoard />
         <Grid />
         <ScoreBoard />
