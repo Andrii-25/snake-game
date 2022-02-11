@@ -12,6 +12,7 @@ export default class Store {
   score = 0;
   snakeSpeed = 1;
   currentScore = 0;
+  snakeLength = 2;
 
   constructor() {
     makeAutoObservable(this);
@@ -39,6 +40,10 @@ export default class Store {
 
   setCurrentScore(score) {
     this.currentScore = score;
+  }
+
+  setSnakeLength(length) {
+    this.snakeLength = length;
   }
 
   async login(username, password) {

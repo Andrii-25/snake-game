@@ -35,7 +35,15 @@ function ScoreBoard() {
             <h2>Snake speed:</h2>
           </th>
           <th>
-            <h2>{store.snakeSpeed}</h2>
+            <h2>{store.snakeSpeed.toFixed(2)}x</h2>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <h2>Snake length:</h2>
+          </th>
+          <th>
+            <h2>{store.snakeLength}</h2>
           </th>
         </tr>
       </table>

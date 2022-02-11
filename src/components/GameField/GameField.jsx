@@ -123,6 +123,7 @@ function GameField() {
     });
     if (snake[0].x === food.position.x && snake[0].y === food.position.y) {
       playGetFoodSound();
+      store.setSnakeLength(++store.snakeLength);
       store.setCurrentScore(
         store.currentScore + rows[food.position.x][food.position.y].points
       );
