@@ -2,12 +2,9 @@ import { useContext, useEffect } from "react";
 import LoginForm from "../components/LoginForm";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
-import Grid from "../components/GameField";
-import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
-import InfoBoard from "../components/InfoBoard";
 import Layout from "../components/Layout";
 
-function MainPage() {
+function ScoresPage() {
   const { store } = useContext(Context);
 
   useEffect(() => {
@@ -26,13 +23,9 @@ function MainPage() {
 
   return (
     <>
-      <Layout>
-        <InfoBoard />
-        <Grid />
-        <ScoreBoard />
-      </Layout>
+      <Layout></Layout>
     </>
   );
 }
 
-export default observer(MainPage);
+export default observer(ScoresPage);

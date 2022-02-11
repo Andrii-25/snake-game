@@ -23,7 +23,8 @@ export default function Header({ isAuth, onLogout }) {
       extra={
         isAuth
           ? [
-              <Button key="1" onClick={onLogout}>
+              <Button key="1">Best scores</Button>,
+              <Button key="2" onClick={onLogout}>
                 Logout
               </Button>,
             ]
