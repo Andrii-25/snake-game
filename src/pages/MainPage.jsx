@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import Header from "../components/Header";
 import Grid from "../components/GameField";
 import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
+import InfoBoard from "../components/InfoBoard";
 
 function MainPage() {
   const { store } = useContext(Context);
@@ -32,6 +33,7 @@ function MainPage() {
     <>
       <Header isAuth={store.isAuth} onLogout={handleLogout} />
       <div className={styles.mainContainer}>
+        <InfoBoard />
         <Grid />
         <ScoreBoard />
       </div>
