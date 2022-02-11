@@ -4,6 +4,7 @@ import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import Layout from "../components/Layout";
 import Scores from "../components/Scores/Scores";
+import Spinner from "../components/Spinner";
 
 function ScoresPage() {
   const { store } = useContext(Context);
@@ -15,11 +16,19 @@ function ScoresPage() {
   }, []);
 
   if (store.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
   }
 
   if (!store.isAuth) {
-    return <LoginForm />;
+    return (
+      <Layout>
+        <LoginForm />
+      </Layout>
+    );
   }
 
   return (
