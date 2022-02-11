@@ -13,38 +13,38 @@ function ScoreBoard() {
   return (
     <div className={styles.container}>
       <h1>{store.user.username}</h1>
-      <table>
+      <table className={styles.table}>
         <tr>
-          <th>
+          <td className={styles.td}>
             <h2>Best score:</h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>{store.score}</h2>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td className={styles.td}>
             <h2>Current score:</h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>{store.currentScore}</h2>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td className={styles.td}>
             <h2>Snake speed:</h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>{store.snakeSpeed.toFixed(2)}x</h2>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td className={styles.td}>
             <h2>Snake length:</h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>{store.snakeLength}</h2>
-          </th>
+          </td>
         </tr>
       </table>
     </div>

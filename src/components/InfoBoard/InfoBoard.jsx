@@ -7,22 +7,22 @@ export default function InfoBoard() {
   return (
     <div className={styles.container}>
       <h1>Info</h1>
-      <table>
+      <table className={styles.table}>
         <tr>
-          <th>
+          <td className={styles.td}>
             <h2>
               <img src={appleGreen} alt="Green apple" width={25} height={25} />
             </h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>-</h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>1 point</h2>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td className={styles.td}>
             <h2>
               <img
                 src={appleYellow}
@@ -31,26 +31,26 @@ export default function InfoBoard() {
                 height={25}
               />
             </h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>-</h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>5 points</h2>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>
+          <td className={styles.td}>
             <h2>
               <img src={appleRed} alt="Red apple" width={25} height={25} />
             </h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>-</h2>
-          </th>
-          <th>
+          </td>
+          <td className={styles.td}>
             <h2>10 points</h2>
-          </th>
+          </td>
         </tr>
       </table>
     </div>
