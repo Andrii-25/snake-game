@@ -12,6 +12,7 @@ import appleYellow from "../../images/appleYellow.png";
 import getRandomValueFromArray from "../../utils/getRandomValueFromArray";
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
+import { message } from "antd";
 
 function GameField() {
   const { store } = useContext(Context);
@@ -66,6 +67,8 @@ function GameField() {
   const [delay, setDelay] = useState(200);
   const [initPoints, setInitPoints] = useState(0);
   const [isGameOver, setGameOver] = useState(false);
+  const [currentDelay, setCurrentDelay] = useState(delay);
+  const [isPaused, setPaused] = useState(false);
 
   const changeDirectionWithKeys = (e) => {
     const { keyCode } = e;
@@ -82,10 +85,26 @@ function GameField() {
       case 40:
         setDirection("bottom");
         break;
+      case 32:
+        setPause(99999999999999);
+        break;
+      case 27:
+        unsetPause(currentDelay);
+        break;
       default:
         break;
     }
   };
+
+  function setPause(delay) {
+    setDelay(delay);
+    store.setPaused(true);
+  }
+
+  function unsetPause(delay) {
+    setDelay(delay);
+    store.setPaused(false);
+  }
 
   document.addEventListener("keydown", changeDirectionWithKeys, false);
 
@@ -129,6 +148,7 @@ function GameField() {
       );
       if (store.currentScore - initPoints >= 50) {
         setDelay(Math.floor(delay / 1.1));
+        setCurrentDelay(delay);
         store.setSnakeSpeed(store.snakeSpeed * 1.1);
         setInitPoints(store.currentScore);
       }
@@ -146,7 +166,6 @@ function GameField() {
       if (snake[0].x === e.x && snake[0].y === e.y) {
         playGameOverSound();
         setGameOver(true);
-        store.getScoreByUserId(store.user.id);
         if (store.score < store.currentScore) {
           store.updateScoreByUserId(store.user.id, {
             score: store.currentScore,
@@ -177,11 +196,15 @@ function GameField() {
     })
   );
 
-  return (
+  const gameOverGrid = (
     <div className={styles.grid}>
-      {!isGameOver ? displayRows : "Game Over!"}
+      <h1 style={{ color: "red" }}>Game Over!</h1>
     </div>
   );
+
+  const gameGrid = <div className={styles.grid}>{displayRows}</div>;
+
+  return <>{isGameOver ? gameOverGrid : gameGrid}</>;
 }
 
 export default observer(GameField);

@@ -16,6 +16,7 @@ export default class Store {
   snakeLength = 2;
   scores = [];
   users = [];
+  isPaused = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -57,12 +58,17 @@ export default class Store {
     this.users = users;
   }
 
+  setPaused(isPaused) {
+    this.isPaused = isPaused;
+  }
+
   async login(username, password) {
     try {
       const response = await AuthService.login(username, password);
       localStorage.setItem("token", response.data.accessToken);
       this.setAuth(true);
       this.setUser(response.data.user);
+      this.getScoreByUserId(this.user.id);
       message.success("Successful login!");
     } catch (e) {
       console.log(e.response?.data?.message);
@@ -76,6 +82,7 @@ export default class Store {
       localStorage.setItem("token", response.data.accessToken);
       this.setAuth(true);
       this.setUser(response.data.user);
+      this.getScoreByUserId(this.user.id);
       message.success("Successful registration!");
     } catch (e) {
       console.log(e.response?.data?.message);
@@ -89,6 +96,7 @@ export default class Store {
       localStorage.removeItem("token");
       this.setAuth(false);
       this.setUser({});
+      this.setScore(0);
     } catch (e) {
       console.log(e.response?.data?.message);
       message.error(e.response?.data?.message);

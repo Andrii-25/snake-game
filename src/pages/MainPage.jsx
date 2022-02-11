@@ -31,7 +31,7 @@ function MainPage() {
 
   return (
     <>
-      <Layout>
+      <Layout isGamePaused={store.isPaused}>
         <InfoBoard />
         <Grid />
         <ScoreBoard />

@@ -10,6 +10,7 @@
     "axios": "^0.25.0",
     "mobx": "^6.3.13",
     "mobx-react-lite": "^3.2.3",
+    "modal": "^1.2.0",
     "node-sass": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
