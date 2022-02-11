@@ -6,6 +6,7 @@ import Grid from "../components/GameField";
 import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
 import InfoBoard from "../components/InfoBoard";
 import Layout from "../components/Layout";
+import Spinner from "../components/Spinner";
 
 function MainPage() {
   const { store } = useContext(Context);
@@ -17,11 +18,19 @@ function MainPage() {
   }, []);
 
   if (store.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
   }
 
   if (!store.isAuth) {
-    return <LoginForm />;
+    return (
+      <Layout>
+        <LoginForm />
+      </Layout>
+    );
   }
 
   return (

@@ -1,4 +1,5 @@
 import { PageHeader, Button, Row } from "antd";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Header({ isAuth, onLogout }) {
@@ -17,13 +18,17 @@ export default function Header({ isAuth, onLogout }) {
       backIcon={false}
       title={
         <Row>
-          <StyledH2>Snake Game</StyledH2>
+          <Link to="/">
+            <StyledH2>Snake Game</StyledH2>
+          </Link>
         </Row>
       }
       extra={
         isAuth
           ? [
-              <Button key="1">Best scores</Button>,
+              <Link to="/scores">
+                <Button key="1">Best scores</Button>
+              </Link>,
               <Button key="2" onClick={onLogout}>
                 Logout
               </Button>,
