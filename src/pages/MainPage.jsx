@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import LoginForm from "../components/LoginForm";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import Grid from "../components/GameField";
@@ -7,6 +6,7 @@ import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
 import InfoBoard from "../components/InfoBoard";
 import Layout from "../components/Layout";
 import Spinner from "../components/Spinner";
+import LoginPage from "./LoginPage";
 
 function MainPage() {
   const { store } = useContext(Context);
@@ -26,11 +26,7 @@ function MainPage() {
   }
 
   if (!store.isAuth) {
-    return (
-      <Layout>
-        <LoginForm />
-      </Layout>
-    );
+    return <LoginPage />;
   }
 
   return (
