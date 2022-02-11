@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import styles from "./MainPage.module.scss";
 import LoginForm from "../components/LoginForm";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
-import Header from "../components/Header";
 import Grid from "../components/GameField";
 import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
 import InfoBoard from "../components/InfoBoard";
+import Layout from "../components/Layout";
 
 function MainPage() {
   const { store } = useContext(Context);
@@ -16,10 +15,6 @@ function MainPage() {
       store.checkAuth();
     }
   }, []);
-
-  function handleLogout() {
-    store.logout();
-  }
 
   if (store.isLoading) {
     return <div>Loading...</div>;
@@ -31,12 +26,11 @@ function MainPage() {
 
   return (
     <>
-      <Header isAuth={store.isAuth} onLogout={handleLogout} />
-      <div className={styles.mainContainer}>
+      <Layout>
         <InfoBoard />
         <Grid />
         <ScoreBoard />
-      </div>
+      </Layout>
     </>
   );
 }
