@@ -9,6 +9,7 @@
   font-style: normal;
   font-variant: normal;
   text-transform: none;
+  min-height: 100vh;
 }
 
 .App-logo {

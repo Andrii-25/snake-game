@@ -148,7 +148,11 @@ function GameField() {
         setGameOver(true);
         store.getScoreByUserId(store.user.id);
         if (store.score < store.currentScore) {
-          store.updateScoreByUserId(store.user.id, store.currentScore);
+          store.updateScoreByUserId(store.user.id, {
+            score: store.currentScore,
+            snakeSpeed: store.snakeSpeed,
+            snakeLength: store.snakeLength,
+          });
         }
       }
       count++;
