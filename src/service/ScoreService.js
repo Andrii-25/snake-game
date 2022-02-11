@@ -9,11 +9,11 @@ export default class ScoreService {
     return $api.get("/score/all");
   }
 
-  static getByUser(userId) {
-    return $api.get("/score", { userId });
+  static getByUserId(userId) {
+    return $api.get(`/score/${userId}`);
   }
 
-  static updateByUser(userId) {
-    return $api.put("/score", { userId });
+  static updateByUser(userId, score) {
+    return $api.put(`/score/${userId}`, { score });
   }
 }

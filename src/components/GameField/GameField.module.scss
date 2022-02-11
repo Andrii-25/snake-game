@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   margin-top: -30px;
+  // float: left;
 }
 .grid {
   outline: 5px solid grey;
@@ -13,6 +14,7 @@
   width: 500px;
   height: 500px;
   margin: auto;
+  // margin-left: -700px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -20,7 +22,6 @@
   justify-content: center;
 }
 .gridItem {
-  // outline: 1px solid grey;
   width: 25px;
   height: 25px;
 }

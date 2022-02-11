@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Food from "../Food";
 import Snake from "../Snake";
 import useInterval from "../../hooks/useInterval";
 import styles from "./GameField.module.scss";
-import getRandomColor from "../../utils/getRandomColor";
 import useSound from "use-sound";
 import getFoodSound from "../../audio/getFood.wav";
 import gameOverSound from "../../audio/gameOver.wav";
@@ -11,8 +10,12 @@ import appleRed from "../../images/appleRed.png";
 import appleGreen from "../../images/appleGreen.png";
 import appleYellow from "../../images/appleYellow.png";
 import getRandomValueFromArray from "../../utils/getRandomValueFromArray";
+import { Context } from "../../index";
+import { observer } from "mobx-react-lite";
 
-export default function GameField() {
+function GameField() {
+  const { store } = useContext(Context);
+
   const width = 20;
   const height = 20;
   let initialRows = [];
@@ -62,15 +65,7 @@ export default function GameField() {
   const [food, setFood] = useState(getRandomValueFromArray(foodArray));
   const [delay, setDelay] = useState(200);
   const [initPoints, setInitPoints] = useState(0);
-  const [points, setPoints] = useState(0);
-  // const foodColors = ["yellow", "orange", "red"];
-  // const appleImages = [appleRed, appleGreen, appleYellow];
-  // const [foodColor, setFoodColor] = useState(getRandomColor(foodColors));
-  // const [appleImage, setAppleImage] = useState(
-  //   getRandomValueFromArray(appleImages)
-  // );
   const [isGameOver, setGameOver] = useState(false);
-  const [speed, setSpeed] = useState(1);
 
   const changeDirectionWithKeys = (e) => {
     const { keyCode } = e;
@@ -99,18 +94,6 @@ export default function GameField() {
     snake.forEach((cell) => {
       newRows[cell.x][cell.y] = { title: "snake" };
     });
-    let points = 0;
-    // switch (foodColor) {
-    //   case "yellow":
-    //     points = 1;
-    //     break;
-    //   case "orange":
-    //     points = 5;
-    //     break;
-    //   case "red":
-    //     points = 10;
-    //     break;
-    // }
     newRows[food.position.x][food.position.y] = {
       title: "food",
       points: food.points,
@@ -140,14 +123,14 @@ export default function GameField() {
     });
     if (snake[0].x === food.position.x && snake[0].y === food.position.y) {
       playGetFoodSound();
-      setPoints(points + rows[food.position.x][food.position.y].points);
-      if (points - initPoints >= 50) {
+      store.setCurrentScore(
+        store.currentScore + rows[food.position.x][food.position.y].points
+      );
+      if (store.currentScore - initPoints >= 50) {
         setDelay(Math.floor(delay / 1.1));
-        setSpeed(speed * 1.1);
-        setInitPoints(points);
+        store.setSnakeSpeed(store.snakeSpeed * 1.1);
+        setInitPoints(store.currentScore);
       }
-      // setFoodColor(getRandomColor(foodColors));
-      // setFood(getRandomPosition());
       setFood(getRandomValueFromArray(foodArray));
     } else {
       newSnake.pop();
@@ -162,6 +145,10 @@ export default function GameField() {
       if (snake[0].x === e.x && snake[0].y === e.y) {
         playGameOverSound();
         setGameOver(true);
+        store.getScoreByUserId(store.user.id);
+        if (store.score < store.currentScore) {
+          store.updateScoreByUserId(store.user.id, store.currentScore);
+        }
       }
       count++;
     }
@@ -174,7 +161,6 @@ export default function GameField() {
 
   const displayRows = rows.map((row) =>
     row.map((e) => {
-      // console.log(e.image);
       switch (e.title) {
         case "blank":
           return <div className={styles.gridItem}></div>;
@@ -187,14 +173,10 @@ export default function GameField() {
   );
 
   return (
-    <div className={styles.snakeContainer}>
-      <div className={styles.grid}>
-        {!isGameOver ? displayRows : "Game Over!"}
-      </div>
-      <div>
-        <h1>{`Score: ${points}`}</h1>
-        <h1>{`Speed: ${speed}x`}</h1>
-      </div>
+    <div className={styles.grid}>
+      {!isGameOver ? displayRows : "Game Over!"}
     </div>
   );
 }
+
+export default observer(GameField);

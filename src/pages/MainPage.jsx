@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from "react";
+import styles from "./MainPage.module.scss";
 import LoginForm from "../components/LoginForm";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
-import UserService from "../service/UserService";
-import { message } from "antd";
 import Header from "../components/Header";
 import Grid from "../components/GameField";
+import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
 
 function MainPage() {
   const { store } = useContext(Context);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -17,19 +16,7 @@ function MainPage() {
     }
   }, []);
 
-  async function getUsers() {
-    try {
-      const response = await UserService.fetchUsers();
-      setUsers(response.data);
-      message.success("Successfully fetched users!");
-    } catch (e) {
-      console.log(e);
-      message.error(e.message);
-    }
-  }
-
   function handleLogout() {
-    setUsers([]);
     store.logout();
   }
 
@@ -43,8 +30,11 @@ function MainPage() {
 
   return (
     <>
-      <Header isAuth={store.isAuth} onLogout={handleLogout}/>
-      <Grid />
+      <Header isAuth={store.isAuth} onLogout={handleLogout} />
+      <div className={styles.mainContainer}>
+        <Grid />
+        <ScoreBoard />
+      </div>
     </>
   );
 }
