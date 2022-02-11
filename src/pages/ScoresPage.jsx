@@ -3,6 +3,7 @@ import LoginForm from "../components/LoginForm";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import Layout from "../components/Layout";
+import Scores from "../components/Scores/Scores";
 
 function ScoresPage() {
   const { store } = useContext(Context);
@@ -23,7 +24,9 @@ function ScoresPage() {
 
   return (
     <>
-      <Layout></Layout>
+      <Layout>
+        <Scores />
+      </Layout>
     </>
   );
 }

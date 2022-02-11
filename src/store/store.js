@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import axios from "axios";
 import AuthService from "../service/AuthService";
 import ScoreService from "../service/ScoreService";
+import UserService from "../service/UserService";
 import { API_URL } from "../http";
 import { message } from "antd";
 
@@ -13,6 +14,8 @@ export default class Store {
   snakeSpeed = 1;
   currentScore = 0;
   snakeLength = 2;
+  scores = [];
+  users = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -44,6 +47,14 @@ export default class Store {
 
   setSnakeLength(length) {
     this.snakeLength = length;
+  }
+
+  setScores(scores) {
+    this.scores = scores;
+  }
+
+  setUsers(users) {
+    this.users = users;
   }
 
   async login(username, password) {
@@ -114,6 +125,26 @@ export default class Store {
   async updateScoreByUserId(userId, score) {
     try {
       const response = await ScoreService.updateByUser(userId, score);
+    } catch (e) {
+      console.log(e.response?.data?.message);
+      message.error(e.response?.data?.message);
+    }
+  }
+
+  async getAllScores() {
+    try {
+      const response = await ScoreService.fetchScores();
+      this.setScores(response.data);
+    } catch (e) {
+      console.log(e.response?.data?.message);
+      message.error(e.response?.data?.message);
+    }
+  }
+
+  async getAllUsers() {
+    try {
+      const response = await UserService.fetchUsers();
+      this.setUsers(response.data);
     } catch (e) {
       console.log(e.response?.data?.message);
       message.error(e.response?.data?.message);
