@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 import AuthService from "../service/AuthService";
 import ScoreService from "../service/ScoreService";
@@ -64,7 +64,9 @@ export default class Store {
   }
 
   setRestartGame(restartGame) {
-    this.restartGame = restartGame;
+    runInAction(() => {
+      this.restartGame = restartGame;
+    });
   }
 
   async login(username, password) {

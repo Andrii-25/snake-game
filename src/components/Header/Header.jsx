@@ -12,6 +12,11 @@ const StyledH2 = styled.h2`
 `;
 
 export default function Header({ isAuth, onLogout, restartGame }) {
+  function handleRestartGame() {
+    if (window.confirm("Restart the game?")) {
+      restartGame();
+    }
+  }
   return (
     <StyledPageHeader
       className="site-page-header"
@@ -26,7 +31,7 @@ export default function Header({ isAuth, onLogout, restartGame }) {
       extra={
         isAuth
           ? [
-              <Button key="1" onClick={restartGame}>
+              <Button key="1" onClick={handleRestartGame}>
                 Restart game
               </Button>,
               <Link key="2" to="/scores">
