@@ -165,6 +165,7 @@ function GameField() {
       if (snake[0].x === e.x && snake[0].y === e.y) {
         playGameOverSound();
         setGameOver(true);
+        setDelay(99999999999999);
         if (store.score < store.currentScore) {
           store.updateScoreByUserId(store.user.id, {
             score: store.currentScore,
