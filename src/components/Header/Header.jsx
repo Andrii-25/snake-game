@@ -11,7 +11,7 @@ const StyledH2 = styled.h2`
   color: #1890ff;
 `;
 
-export default function Header({ isAuth, onLogout }) {
+export default function Header({ isAuth, onLogout, restartGame }) {
   return (
     <StyledPageHeader
       className="site-page-header"
@@ -26,10 +26,13 @@ export default function Header({ isAuth, onLogout }) {
       extra={
         isAuth
           ? [
-              <Link key="1" to="/scores">
+              <Button key="1" onClick={restartGame}>
+                Restart game
+              </Button>,
+              <Link key="2" to="/scores">
                 <Button>Best scores</Button>
               </Link>,
-              <Button key="2" onClick={onLogout}>
+              <Button key="3" onClick={onLogout}>
                 Logout
               </Button>,
             ]

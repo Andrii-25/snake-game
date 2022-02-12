@@ -17,6 +17,7 @@ export default class Store {
   scores = [];
   users = [];
   isPaused = false;
+  restartGame = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -60,6 +61,10 @@ export default class Store {
 
   setPaused(isPaused) {
     this.isPaused = isPaused;
+  }
+
+  setRestartGame(restartGame) {
+    this.restartGame = restartGame;
   }
 
   async login(username, password) {

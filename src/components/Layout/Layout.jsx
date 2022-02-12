@@ -13,7 +13,11 @@ function Layout({ children }) {
 
   return (
     <>
-      <Header isAuth={store.isAuth} onLogout={handleLogout} />
+      <Header
+        isAuth={store.isAuth}
+        onLogout={handleLogout}
+        restartGame={store.restartGame}
+      />
       <div className={styles.mainContainer}>{children}</div>
     </>
   );

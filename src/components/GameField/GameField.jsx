@@ -69,6 +69,16 @@ function GameField() {
   const [isGameOver, setGameOver] = useState(false);
   const [currentDelay, setCurrentDelay] = useState(delay);
 
+  function restartGame() {
+    setRows(initialRows);
+    setSnake([
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+    ]);
+  }
+
+  store.setRestartGame(restartGame);
+
   const changeDirectionWithKeys = (e) => {
     const { keyCode } = e;
     switch (keyCode) {
