@@ -79,6 +79,9 @@ function GameField() {
       { x: 0, y: 0 },
       { x: 1, y: 0 },
     ]);
+    store.setSnakeSpeed(1);
+    store.setCurrentScore(0);
+    store.setSnakeLength(2);
   }
 
   store.setRestartGame(restartGame);
