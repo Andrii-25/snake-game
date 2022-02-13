@@ -7,7 +7,7 @@
 1.  Clone the project from github. Change "myproject" to your project name.
 
 ```bash
-https://github.com/Andrii-25/snake-game-front.git ./myproject
+git clone https://github.com/Andrii-25/snake-game-front.git ./myproject
 ```
 
 ### Using manual download ZIP
