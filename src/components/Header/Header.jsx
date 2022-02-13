@@ -1,6 +1,8 @@
 import { PageHeader, Button, Row } from "antd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import SoundOffButton from "../SoundOffButton/SoundOffButton";
+import SoundOnButton from "../SoundOnButton/SoundOnButton";
 
 const StyledPageHeader = styled(PageHeader)`
   height: 70px;
@@ -11,12 +13,18 @@ const StyledH2 = styled.h2`
   color: #1890ff;
 `;
 
-export default function Header({ isAuth, onLogout, restartGame }) {
+export default function Header({ isAuth, onLogout, restartGame, isSoundOff }) {
   function handleRestartGame() {
     if (window.confirm("Restart the game?")) {
       restartGame();
     }
   }
+
+  const soundButton = isSoundOff ? (
+    <SoundOffButton key="4" />
+  ) : (
+    <SoundOnButton key="4" />
+  );
   return (
     <StyledPageHeader
       className="site-page-header"
@@ -40,6 +48,7 @@ export default function Header({ isAuth, onLogout, restartGame }) {
               <Button key="3" onClick={onLogout}>
                 Logout
               </Button>,
+              soundButton,
             ]
           : null
       }

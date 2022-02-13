@@ -18,6 +18,7 @@ export default class Store {
   users = [];
   isPaused = false;
   restartGame = null;
+  isSoundOff = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -67,6 +68,10 @@ export default class Store {
     runInAction(() => {
       this.restartGame = restartGame;
     });
+  }
+
+  setSoundOff(soundOff) {
+    this.isSoundOff = soundOff;
   }
 
   async login(username, password) {

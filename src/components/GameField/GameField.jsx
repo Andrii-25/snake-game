@@ -154,7 +154,9 @@ function GameField() {
       newSnake.push(cell);
     });
     if (snake[0].x === food.position.x && snake[0].y === food.position.y) {
-      playGetFoodSound();
+      if (!store.isSoundOff) {
+        playGetFoodSound();
+      }
       store.setSnakeLength(++store.snakeLength);
       store.setCurrentScore(
         store.currentScore + rows[food.position.x][food.position.y].points
@@ -177,7 +179,9 @@ function GameField() {
         continue;
       }
       if (snake[0].x === e.x && snake[0].y === e.y) {
-        playGameOverSound();
+        if (!store.isSoundOff) {
+          playGameOverSound();
+        }
         setGameOver(true);
         setDelay(99999999999999);
         if (store.score < store.currentScore) {

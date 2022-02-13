@@ -17,6 +17,7 @@ function Layout({ children }) {
         isAuth={store.isAuth}
         onLogout={handleLogout}
         restartGame={store.restartGame}
+        isSoundOff={store.isSoundOff}
       />
       <div className={styles.mainContainer}>{children}</div>
     </>
