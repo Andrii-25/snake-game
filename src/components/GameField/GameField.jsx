@@ -70,6 +70,10 @@ function GameField() {
   const [currentDelay, setCurrentDelay] = useState(delay);
 
   function restartGame() {
+    if (isGameOver) {
+      setGameOver(false);
+    }
+    setDelay(200);
     setRows(initialRows);
     setSnake([
       { x: 0, y: 0 },
